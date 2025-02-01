@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - SMART LOCKER</title>
+    <link rel="stylesheet" href="path/to/your/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-image: url("assets/img/latar.png");
+        background-size: cover;
+        background-position: center;
+      }
+
+      .login-container {
+        background-color: rgba(255, 255, 255, 0.5);
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+        width: 300px;
+        text-align: center;
+      }
+
+      h1 {
+        margin-bottom: 20px;
+        color: #333;
+        font-size: 22px;
+        text-transform: uppercase;
+      }
+
+      .input-container {
+        position: relative;
+        margin: 10px 0;
+      }
+
+      .input-container i {
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #999;
+      }
+
+      input[type="text"],
+      input[type="password"] {
+        width: 100%;
+        padding: 10px 10px 10px 30px;
+        /* Padding untuk ikon */
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 16px;
+        box-sizing: border-box;
+      }
+
+      .button {
+        background-color: #4a90e2;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s;
+        width: 100%;
+        margin-top: 15px;
+        text-decoration: none;
+      }
+
+      .button:hover {
+        background-color: #357abd;
+      }
+
+      .error-message {
+        color: red;
+        margin-top: 10px;
+        font-size: 14px;
+      }
+
+      .success-message {
+        color: green;
+        margin-top: 10px;
+        font-size: 14px;
+      }
+
+      .show-password-container {
+        margin: 10px 0;
+        text-align: left;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="login-container">
+      <h1>APLIKASI SMART LOCKER</h1>
+      <form action="index.html" method="POST">
+        <div class="input-container">
+          <i class="fas fa-user"></i>
+          <input
+            type="text"
+            name="username"
+            placeholder="Username"
+            id="username"
+            required
+          />
+        </div>
+        <div class="input-container">
+          <i class="fas fa-lock"></i>
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            id="password"
+            required
+          />
+        </div>
+        <div class="show-password-container">
+          <input type="checkbox" id="showPassword" onclick="togglePassword()" />
+          <label for="showPassword">Show Password</label>
+        </div>
+        <a href="index.html" class="button" type="submit">Login</a>
+        <div class="error-message">
+          <?php if (!empty($error_message)) echo $error_message; ?>
+        </div>
+        <div class="success-message">
+          <?php if (!empty($success_message)) echo $success_message; ?>
+        </div>
+        <!-- <h6>Anda Belum Punya Akun? <a href="register.php">Registrasi Akun</a></h6> -->
+      </form>
+    </div>
+
+    <script>
+      function togglePassword() {
+        const passwordInput = document.getElementById("password");
+        const showPasswordCheckbox = document.getElementById("showPassword");
+        passwordInput.type = showPasswordCheckbox.checked ? "text" : "password";
+      }
+    </script>
+  </body>
+</html>

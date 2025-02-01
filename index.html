@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SMART LOCKER</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+
+    <style>
+      /* Styling untuk body */
+      body {
+        font-family: "Poppins", sans-serif;
+        margin: 0;
+        padding: 0;
+        background-image: url("assets/img/latar.png");
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        /* Pastikan body setidaknya setinggi viewport */
+      }
+
+      /* Styling untuk navbar */
+      .navbar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #4a4a4a;
+        height: 60px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .app-name {
+        color: white;
+        font-size: 26px;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+      }
+
+      /* Styling untuk konten */
+      .content {
+        text-align: center;
+        margin-top: 5px;
+        padding: 20px;
+      }
+
+      h3 {
+        font-size: 28px;
+        color: #333;
+        margin-bottom: 20px;
+      }
+
+      p {
+        font-size: 16px;
+        color: white;
+      }
+
+      a {
+        font-size: 16px;
+        color: blue;
+      }
+
+      /* Waktu server */
+      .server-time {
+        font-size: 18px;
+        color: #4a4a4a;
+        margin-top: 20px;
+      }
+
+      /* Styling untuk fitur pilihan */
+      .features {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 20px;
+        margin-top: 30px;
+      }
+
+      .feature-box {
+        background-color: white;
+        border-radius: 15px;
+        width: 150px;
+        height: 150px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        cursor: pointer;
+      }
+
+      .feature-box:hover {
+        transform: translateY(-10px);
+        box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.15);
+      }
+
+      .feature-box h4 {
+        font-size: 18px;
+        color: #4a4a4a;
+        margin-top: 10px;
+      }
+
+      .feature-box i {
+        font-size: 30px;
+        color: #4a90e2;
+      }
+
+      /* Styling untuk tabel */
+      table {
+        width: 80%;
+        margin: 20px auto;
+        border-collapse: collapse;
+        display: none;
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+      }
+
+      th {
+        background-color: #4a4a4a;
+        color: white;
+      }
+
+      tr:hover {
+        background-color: #d6eeee;
+      }
+
+      /* Styling untuk tabel aktif */
+      .table-active {
+        display: table;
+        opacity: 1;
+        visibility: visible;
+      }
+
+      /* Styling untuk tombol tambah akun */
+      .add-account-btn {
+        display: none;
+        /* Sembunyikan tombol awalnya */
+        margin-top: 20px;
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #4a90e2;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      .add-account-btn:hover {
+        background-color: #357ab8;
+      }
+
+      /* Responsive layout untuk fitur */
+      @media (max-width: 768px) {
+        .features {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .feature-box {
+          width: 100px;
+          height: 100px;
+        }
+
+        .feature-box h4 {
+          font-size: 14px;
+        }
+
+        .feature-box i {
+          font-size: 24px;
+        }
+      }
+
+      .main-footer {
+        z-index: 1;
+        background-color: #4a4a4a;
+        color: white;
+        padding: 20px;
+        text-align: center;
+        position: relative;
+        bottom: 0;
+        width: 100%;
+      }
+
+      .footer-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+    </style>
+    <script>
+      let activeTable = null;
+      let startTime = new Date(); // Waktu mulai server
+      let accounts = [
+        {
+          id: 1,
+          username: "admin",
+          status: "Aktif",
+        },
+        {
+          id: 2,
+          username: "user1",
+          status: "Aktif",
+        },
+        {
+          id: 3,
+          username: "user2",
+          status: "Tidak Aktif",
+        },
+      ];
+
+      function toggleTable(tableId) {
+        const table = document.getElementById(tableId);
+
+        if (activeTable && activeTable !== table) {
+          activeTable.classList.remove("table-active");
+          activeTable.style.opacity = "0";
+          setTimeout(() => {
+            activeTable.style.visibility = "hidden";
+          }, 500);
+        }
+
+        if (table.style.display === "none" || table.style.display === "") {
+          table.style.visibility = "visible";
+          table.classList.add("table-active");
+          table.style.opacity = "1";
+          activeTable = table;
+          renderAccountTable(); // Render tabel setiap kali ditampilkan
+
+          // Tampilkan tombol tambah akun hanya jika fitur yang dipilih adalah "Kelola Akun"
+          if (tableId === "manage-account-table") {
+            document.getElementById("add-account-btn").style.display = "block";
+          } else {
+            document.getElementById("add-account-btn").style.display = "none";
+          }
+        } else {
+          table.classList.remove("table-active");
+          table.style.opacity = "0";
+          setTimeout(() => {
+            table.style.visibility = "hidden";
+          }, 500);
+          activeTable = null;
+
+          // Sembunyikan tombol tambah akun saat tabel tidak aktif
+          document.getElementById("add-account-btn").style.display = "none";
+        }
+      }
+
+      function updateServerTime() {
+        const currentTime = new Date();
+        const hours = currentTime.getHours().toString().padStart(2, "0");
+        const minutes = currentTime.getMinutes().toString().padStart(2, "0");
+        const seconds = currentTime.getSeconds().toString().padStart(2, "0");
+        document.getElementById(
+          "server-time"
+        ).innerText = `Waktu server : ${hours}:${minutes}:${seconds}`;
+      }
+
+      // Memperbarui waktu server setiap detik
+      setInterval(updateServerTime, 1000);
+      updateServerTime(); // Panggil sekali untuk set awal waktu
+
+      function addAccount() {
+        window.location.href = "register.php"; // Arahkan ke halaman register
+      }
+
+      function deleteAccount(id) {
+        if (confirm("Apakah Anda yakin ingin menghapus akun ini?")) {
+          fetch("delete_account.php", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: `id=${id}`,
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.message) {
+                alert(data.message);
+                renderAccountTable(); // Refresh tabel akun
+              }
+            })
+            .catch((error) => console.error("Error deleting account:", error));
+        }
+      }
+
+      // $(document).ready(function() {
+      //     // Menangani submit form dengan AJAX
+      //     $('#registerForm').on('submit', function(e) {
+      //         e.preventDefault(); // Mencegah reload halaman
+
+      //         // Ambil data dari form
+      //         var username = $('#username').val();
+      //         var password = $('#password').val();
+
+      //         // Kirim data menggunakan AJAX
+      //         $.ajax({
+      //             type: 'POST',
+      //             url: 'register_handler.php', // File PHP yang menangani proses registrasi
+      //             data: {
+      //                 username: username,
+      //                 password: password
+      //             },
+      //             success: function(response) {
+      //                 // Tampilkan pesan sukses atau error sesuai respon dari server
+      //                 alert(response);
+      //                 $('#registerModal').modal('hide'); // Tutup modal setelah sukses
+      //             },
+      //             error: function() {
+      //                 alert('Registrasi gagal. Coba lagi.');
+      //             }
+      //         });
+      //     });
+      // });
+    </script>
+  </head>
+
+  <body>
+    <!-- Navbar -->
+    <div
+      class="navbar"
+      style="
+        display: flex;
+        align-items: center;
+        background-color: #4a4a4a;
+        padding: 10px;
+      "
+    >
+      <div
+        class="app-name"
+        style="
+          color: white;
+          font-size: 26px;
+          font-weight: bold;
+          text-transform: uppercase;
+          letter-spacing: 1.5px;
+          flex: 1;
+          text-align: center;
+        "
+      >
+        SMART LOCKER
+      </div>
+      <div class="notification" style="position: relative; margin-right: 20px">
+        <i
+          class="fas fa-bell"
+          style="color: white; font-size: 18px; cursor: pointer"
+          onclick="toggleNotifications()"
+        ></i>
+        <span
+          id="notification-count"
+          style="position: absolute; top: -10px; right: -10px; background: red; color: white; font-size: 12px; border-radius: 50%; padding: 2px 6px; display: <?php echo ($unread_count > 0) ? 'inline' : 'none'; ?>;"
+        >
+          <?php echo $unread_count; ?>
+        </span>
+        <div
+          id="notification-dropdown"
+          style="
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 25px;
+            background: white;
+            width: 300px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            z-index: 10;
+          "
+        >
+          <ul style="list-style: none; margin: 0; padding: 10px">
+            <?php if ($result->num_rows > 0): ?>
+            <?php while ($row = $result->fetch_assoc()): ?>
+            <li style="padding: 5px 0; border-bottom: 1px solid #ddd">
+              <?php echo htmlspecialchars($row['message']); ?>
+            </li>
+            <?php endwhile; ?>
+            <?php else: ?>
+            <li style="padding: 5px 0; border-bottom: 1px solid #ddd">
+              No notifications yet.
+            </li>
+            <?php endif; ?>
+          </ul>
+        </div>
+      </div>
+      <a
+        href="login_admin.html"
+        style="color: white; text-decoration: none; font-size: 18px"
+      >
+        <i class="fas fa-sign-out-alt"></i>
+      </a>
+    </div>
+
+    <!-- Isi Halaman -->
+    <section class="content">
+      <div>
+        <h3>Welcome to Smart Locker</h3>
+        <p>Aplikasi untuk Mengelola Loker Pintar.</p>
+
+        <!-- <div class="server-time" id="server-time"></div> -->
+        <p id="server-time">Waktu server:</p>
+
+        <!-- Fitur pilihan dalam bentuk kotak dengan ikon -->
+        <div class="features">
+          <div class="feature-box" onclick="toggleTable('checkin-table')">
+            <i class="fas fa-sign-in-alt"></i>
+            <h4>Check-In</h4>
+          </div>
+          <div class="feature-box" onclick="toggleTable('checkout-table')">
+            <i class="fas fa-sign-out-alt"></i>
+            <h4>Check-Out</h4>
+          </div>
+          <div class="feature-box" onclick="toggleTable('blacklist-table')">
+            <i class="fas fa-ban"></i>
+            <h4>Black-List</h4>
+          </div>
+          <div
+            class="feature-box"
+            onclick="toggleTable('manage-account-table')"
+          >
+            <i class="fas fa-user-cog"></i>
+            <h4>Account Data</h4>
+          </div>
+        </div>
+
+        <!-- Tabel untuk Check-in -->
+        <table id="checkin-table">
+          <thead>
+            <tr>
+              <th>Nama</th>
+              <th>Nomor Hp</th>
+              <th>Nomor Loker</th>
+              <th>Waktu Check-in</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td colspan="4">Belum ada data check-in.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Tabel untuk Check-out -->
+        <table id="checkout-table">
+          <thead>
+            <tr>
+              <th>Nama</th>
+              <th>Waktu Check-out</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td colspan="3">Belum ada data check-out.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Tabel untuk Black List -->
+        <table id="blacklist-table">
+          <thead>
+            <tr>
+              <th>Nama</th>
+              <th>Waktu</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td colspan="2">Belum ada data Black-List.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Tabel untuk Kelola Akun -->
+        <table id="manage-account-table">
+          <thead>
+            <tr>
+              <th>Nama</th>
+              <th>Username</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Admin</td>
+              <td>admin1</td>
+
+              <td>
+                <a
+                  class="btn btn-primary btn-sm"
+                  href='edit_password.php?id=" . $row["id"] . "'
+                  >Edit Password</a
+                >
+                |
+                <a
+                  class="btn btn-danger btn-sm"
+                  href='delete_user.php?id=" . $row["id"] . "'
+                  onclick='return confirm(\"Yakin ingin menghapus akun ini?\")'
+                  >Hapus</a
+                >
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Tombol Tambah Akun -->
+        <!-- <button id="add-account-btn" class="add-account-btn" onclick="addAccount()">Tambah Akun</button> -->
+        <!-- Tombol untuk membuka modal -->
+        <!-- <button id="add-account-btn" class="btn btn-primary" data-toggle="modal" data-target="#registerModal">
+                Tambah Akun
+            </button> -->
+
+        <!-- Modal Bootstrap -->
+        <div
+          class="modal fade"
+          id="registerModal"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="registerModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="registerModalLabel">
+                  Registrasi Akun Baru
+                </h5>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <!-- Form Registrasi di dalam Modal -->
+                <form id="registerForm" method="POST">
+                  <div class="form-group">
+                    <label for="nama">Nama:</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="nama"
+                      name="nama"
+                      required
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="username"
+                      name="username"
+                      required
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="password"
+                      name="password"
+                      required
+                    />
+                  </div>
+                  <button type="submit" class="btn btn-primary">
+                    Register
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- <footer class="main-footer">
+        <div class="footer-content">
+            <div><strong>Copyright © by <a href="#">Natasha Melinda</a>.</strong> All rights reserved.</div>
+        </div>
+    </footer> -->
+  </body>
+  <!-- Tombol navigasi halaman -->
+  <!-- <div id="pagination-controls" style="display: flex; justify-content: center; gap: 10px; margin-top: 20px;">
+    <button id="prev-btn" class="btn btn-secondary" onclick="prevPage()">Previous</button>
+    <span id="page-info"></span>
+    <button id="next-btn" class="btn btn-secondary" onclick="nextPage()">Next</button>
+</div> -->
+
+  <!-- <script>
+let currentPage = 1;
+const rowsPerPage = 10;
+
+function paginateTable(tableId) {
+    const table = document.getElementById(tableId);
+    const rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+    const totalRows = rows.length;
+    const totalPages = Math.ceil(totalRows / rowsPerPage);
+
+    // Menampilkan hanya baris pada halaman saat ini
+    for (let i = 0; i < totalRows; i++) {
+        rows[i].style.display = (i >= (currentPage - 1) * rowsPerPage && i < currentPage * rowsPerPage) ? '' : 'none';
+    }
+
+    // Perbarui informasi halaman
+    document.getElementById('page-info').innerText = `Page ${currentPage} of ${totalPages}`;
+
+    // Atur tombol navigasi
+    document.getElementById('prev-btn').disabled = currentPage === 1;
+    document.getElementById('next-btn').disabled = currentPage === totalPages;
+}
+
+function nextPage() {
+    currentPage++;
+    paginateTable(activeTable.id);
+}
+
+function prevPage() {
+    currentPage--;
+    paginateTable(activeTable.id);
+}
+
+// Modifikasi fungsi toggleTable untuk memanggil paginateTable
+function toggleTable(tableId) {
+    const table = document.getElementById(tableId);
+
+    if (activeTable && activeTable !== table) {
+        activeTable.classList.remove('table-active');
+        activeTable.style.opacity = '0';
+        setTimeout(() => {
+            activeTable.style.visibility = 'hidden';
+        }, 500);
+    }
+
+    if (table.style.display === 'none' || table.style.display === '') {
+        table.style.visibility = 'visible';
+        table.classList.add('table-active');
+        table.style.opacity = '1';
+        activeTable = table;
+
+        // Panggil fungsi paginateTable saat tabel ditampilkan
+        currentPage = 1;
+        paginateTable(tableId);
+
+        // Tampilkan tombol tambah akun jika tabel yang aktif adalah manage-account-table
+        if (tableId === 'manage-account-table') {
+            document.getElementById('add-account-btn').style.display = 'block';
+        } else {
+            document.getElementById('add-account-btn').style.display = 'none';
+        }
+    } else {
+        table.classList.remove('table-active');
+        table.style.opacity = '0';
+        setTimeout(() => {
+            table.style.visibility = 'hidden';
+        }, 500);
+        activeTable = null;
+        document.getElementById('add-account-btn').style.display = 'none';
+    }
+}
+</script> -->
+</html>
