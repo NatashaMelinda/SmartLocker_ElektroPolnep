@@ -60,5 +60,10 @@ Aplikasi ini dibangun dengan menggunakan teknologi web yang modern dan mudah dia
 - Aplikasi ini didesain agar ramah pengguna di berbagai perangkat (responsive design).
 
 ---
+## **Akses Online**
 
+Anda dapat mengakses aplikasi ini secara langsung melalui website hosting berikut:
+
+- [Loker Pintar (Website Hosting)](https://lokerpintarpolnep.com/)
+- [Loker Pintar (CSB Hosting)](https://xdms7z.csb.app/login_admin.html)
 Dengan **Smart Locker**, Anda dapat mengelola loker secara efisien dan terorganisir. Semoga aplikasi ini memberikan kemudahan dan kenyamanan dalam penggunaan Anda!
